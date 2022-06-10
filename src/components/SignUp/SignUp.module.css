@@ -107,6 +107,10 @@
   width: 100% !important;
 }
 
+.signup__error{
+  color: #df3a64 !important;
+}
+
 @media (max-width: 665px) {
   .signup {
     width: 80vw;

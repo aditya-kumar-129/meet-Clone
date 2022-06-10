@@ -1,11 +1,30 @@
 import { Button, TextField } from "@mui/material";
-import React from "react";
+import React ,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./SignIn.module.css";
 
 const Signin = () => {
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const emailChangeHandler = (event) => {
+    setEmail(event.target.value);
+  }
+
+  const passwordChangeHandler = (event) => {
+
+    setPassword(event.target.value);
+  }
+
+  const submitFormHandler = (event) => {
+    event.preventDefault();
+    console.log(email, password);
+    setEmail("");
+    setPassword("");
+  }
 
   return (
     <div className={styles.login}>
@@ -18,8 +37,10 @@ const Signin = () => {
           />
           <p className={styles.login__title}>Sign in</p>
           <p className={styles.login__subtitle}>Continue to Gmail</p>
-          <form className={styles.login__form}>
+          <form className={styles.login__form} onSubmit={submitFormHandler}>
             <TextField
+              value={email}
+              onChange={emailChangeHandler}
               id="outlined-basic"
               label="Email"
               variant="outlined"
@@ -27,6 +48,8 @@ const Signin = () => {
               className={styles.login__input}
             />
             <TextField
+              value={password}
+              onChange={passwordChangeHandler}
               id="outlined-basic"
               label="Password"
               variant="outlined"
