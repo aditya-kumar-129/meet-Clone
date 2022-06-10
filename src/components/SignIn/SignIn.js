@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../lib/firebase";
 
 import styles from "./SignIn.module.css";
 
@@ -10,21 +11,49 @@ const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const intialErrorValue = { state: false, message: "" };
+  const [passwordError, setPasswordError] = useState(intialErrorValue);
+  const [emailError, setEmailError] = useState(intialErrorValue);
+
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
-  }
-
+  };
   const passwordChangeHandler = (event) => {
-
     setPassword(event.target.value);
-  }
+  };
 
   const submitFormHandler = (event) => {
     event.preventDefault();
-    console.log(email, password);
-    setEmail("");
-    setPassword("");
-  }
+    let checkwhetherErrorOccured = false;
+    auth.signInWithEmailAndPassword(email, password).then(() => {
+        setPasswordError(intialErrorValue);
+        setEmailError(intialErrorValue);
+        // navigate("/newpage");
+      })
+      .catch((error) => {
+        if (error.code === "auth/wrong-password") {
+          setPasswordError({ state: true, message: "Wrong password" });
+          setEmailError(intialErrorValue);
+          checkwhetherErrorOccured = true;
+        } else if (error.code === "auth/user-not-found") {
+          setEmailError({ state: true, message: "User not found" });
+          setPasswordError(intialErrorValue);
+          checkwhetherErrorOccured = true;
+        } else if (error.code === "auth/invalid-email") {
+          setEmailError({ state: true, message: "Invalid email" });
+          setPasswordError(intialErrorValue);
+          checkwhetherErrorOccured = true;
+        } else {
+          setEmailError({ state: true, message: "Something went wrong" });
+          setPasswordError({ state: true, message: "Something went wrong" });
+          checkwhetherErrorOccured = true;
+        }
+      });
+    if (!checkwhetherErrorOccured) {
+      setEmail("");
+      setPassword("");
+    }
+  };
 
   return (
     <div className={styles.login}>
@@ -45,6 +74,8 @@ const Signin = () => {
               label="Email"
               variant="outlined"
               type="email"
+              error={emailError.state}
+              helperText={emailError.state ? emailError.message : ""}
               className={styles.login__input}
             />
             <TextField
@@ -54,6 +85,8 @@ const Signin = () => {
               label="Password"
               variant="outlined"
               type="password"
+              error={passwordError.state}
+              helperText={passwordError.state ? passwordError.message : ""}
               className={styles.login__input}
             />
             <div className={styles.login__infoText}>

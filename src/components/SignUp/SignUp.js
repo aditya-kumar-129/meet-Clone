@@ -2,6 +2,7 @@ import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import React, { useState } from "react";
 import styles from "./SignUp.module.css";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../lib/firebase";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const SignUp = () => {
   const intialErrorValue = { state: false, message: "" };
   const [passwordError, setPasswordError] = useState(intialErrorValue);
   const [emailError, setEmailError] = useState(intialErrorValue);
+
+  const [checked, setChecked] = useState(false);
 
   const firstNameChangeHandler = (event) => {
     setFirstName(event.target.value);
@@ -32,28 +35,72 @@ const SignUp = () => {
     setConfirmPassword(event.target.value);
   };
 
+  const buttonDisableCondition = !firstName || !lastName || !email || !password || !confirmPassword;
+
   const submitFormHandler = (event) => {
     event.preventDefault();
-    const newUserData = {
-      firstName,
-      lastName,
-      email,
-      password,
-    };
+    const newUserData = { firstName, lastName, email, password };
+    let getNewInptFormFlag = true;
     if (password !== confirmPassword) {
       setPasswordError({ state: true, message: "Passwords do not match" });
       setEmailError(intialErrorValue);
       setConfirmPassword("");
       return;
     } else {
-      console.log(newUserData);
-      setPasswordError(intialErrorValue);
-      setEmailError(intialErrorValue);
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          auth.currentUser.updateProfile({
+            displayName: `${firstName} ${lastName}`,
+          });
+        })
+        .catch((error) => {
+          if (error.code === "auth/email-already-in-use") {
+            setPasswordError(intialErrorValue);
+            setEmailError({ state: true, message: "Email already in use" });
+            setEmail("");
+            setPassword("");
+            getNewInptFormFlag = false;
+            setConfirmPassword("");
+            return;
+          }
+          if (error.code === "auth/invalid-email") {
+            setPasswordError(intialErrorValue);
+            setEmailError({
+              state: true,
+              message: "Email address is not properly formatted",
+            });
+            getNewInptFormFlag = false;
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+          } else if (error.code === "auth/weak-password") {
+            setEmailError(intialErrorValue);
+            getNewInptFormFlag = false;
+            setPasswordError({
+              state: true,
+              message:
+                "Password is too weak It should be at least 6 characters long",
+            });
+            setPassword("");
+            setConfirmPassword("");
+          } else {
+            setEmailError({ state: true, message: "An unknown error occured" });
+            setPasswordError({
+              state: true,
+              message: "An unknown error occured",
+            });
+          }
+        });
+      if (getNewInptFormFlag) {
+        setPasswordError(intialErrorValue);
+        setEmailError(intialErrorValue);
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+      }
     }
   };
 
@@ -117,7 +164,7 @@ const SignUp = () => {
                     onChange={passwordChangeHandler}
                     id="outlined-basic"
                     label="Password"
-                    type="password"
+                    type={checked ? "text" : "password"}
                     variant="outlined"
                     className={styles.signup__passwordInput}
                     error={passwordError.state}
@@ -127,7 +174,7 @@ const SignUp = () => {
                     onChange={confirmPasswordChangeHandler}
                     id="outlined-basic"
                     label="Confirm Password"
-                    type="password"
+                    type={checked ? "text" : "password"}
                     variant="outlined"
                     className={styles.signup__passwordInput}
                     error={passwordError.state}
@@ -135,7 +182,7 @@ const SignUp = () => {
                 </div>
                 <p
                   className={`${styles.signup__helpertext} ${
-                    passwordError && styles.signup__error
+                    passwordError.state && styles.signup__error
                   }`}
                 >
                   {passwordError.state
@@ -146,6 +193,7 @@ const SignUp = () => {
                 <FormControlLabel
                   control={<Checkbox color="primary" />}
                   label="Show Password"
+                  onChange={() => setChecked(!checked)}
                 />
               </div>
               <div className={styles.signup__buttons}>
@@ -163,6 +211,7 @@ const SignUp = () => {
                   color="primary"
                   variant="contained"
                   type="submit"
+                  disabled={buttonDisableCondition}
                 >
                   Create
                 </Button>
