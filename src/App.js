@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { Route, Routes } from "react-router-dom";
+// import { SignIn, SignUp, HomePage, GmailAnimation } from "./components";
 import { SignIn, SignUp, HomePage } from "./components";
 import {IsUserRedirect, ProtectedRoute } from "./helpers/routes";
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/newUser" element={<ProtectedRoute user={user}><HomePage email={email} displayName={displayName}/></ProtectedRoute>}/>
         <Route path="*" element={<p>404 page</p>}/>
       </Routes>
+      {/* <GmailAnimation/> */}
     </Fragment>
   );
 }
