@@ -28,7 +28,7 @@ const Signin = () => {
     auth.signInWithEmailAndPassword(email, password).then(() => {
         setPasswordError(intialErrorValue);
         setEmailError(intialErrorValue);
-        // navigate("/newpage");
+        navigate("/newUser");
       })
       .catch((error) => {
         if (error.code === "auth/wrong-password") {
