@@ -49,10 +49,10 @@ const HomePage = (props) => {
             </Badge>
             <div className={styles.home__text}>
               <div className={styles.home__mail}>
-                {props.userData._delegate.displayName}
+                {props.displayName}
               </div>
               <div className={styles.home__displayName}>
-                {props.userData._delegate.email}
+                {props.email}
               </div>
             </div>
             <div className={styles.home__btn}>Manage your Google Account</div>
