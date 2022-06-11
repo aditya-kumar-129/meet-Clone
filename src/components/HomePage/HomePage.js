@@ -11,18 +11,18 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 const HomePage = (props) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
-  
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   return (
     <div className={styles.header}>
       <Avatar className={styles.header__avatar} onClick={handleClick} />
@@ -48,11 +48,11 @@ const HomePage = (props) => {
               <Avatar />
             </Badge>
             <div className={styles.home__text}>
-              <div className={styles.home__displayName}>
-                {props.userData._delegate.email}
-              </div>
               <div className={styles.home__mail}>
                 {props.userData._delegate.displayName}
+              </div>
+              <div className={styles.home__displayName}>
+                {props.userData._delegate.email}
               </div>
             </div>
             <div className={styles.home__btn}>Manage your Google Account</div>
@@ -61,12 +61,18 @@ const HomePage = (props) => {
           <div className={styles.home__popover__btm}>
             <div className={styles.home__addBtn}>
               <PersonOutlinedIcon className={styles.home__addIcon} />
-              <p>Add another account</p>
+              <Button
+                onClick={() => {
+                  navigate("/createAccount");
+                }}
+              >
+                <p>Add another account</p>
+              </Button>
             </div>
             <Button
               onClick={() => {
                 auth.signOut();
-                navigate("/");
+                navigate("/signIn");
               }}
               variant="outlined"
               className={styles.home__signOut}

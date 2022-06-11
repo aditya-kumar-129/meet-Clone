@@ -203,7 +203,7 @@ const SignUp = () => {
                     className={styles.signup__button}
                     color="primary"
                     variant="text"
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate("/signIn")}
                   >
                     Sign In instead
                   </Button>

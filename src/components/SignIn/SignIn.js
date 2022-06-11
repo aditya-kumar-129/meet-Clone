@@ -25,7 +25,9 @@ const Signin = () => {
   const submitFormHandler = (event) => {
     event.preventDefault();
     let checkwhetherErrorOccured = false;
-    auth.signInWithEmailAndPassword(email, password).then(() => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
         setPasswordError(intialErrorValue);
         setEmailError(intialErrorValue);
         navigate("/newUser");
