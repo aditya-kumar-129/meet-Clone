@@ -2,6 +2,7 @@
 // https://firebase.google.com/docs/web/modular-upgrade#example_1_refactoring_an_function
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDwS0Ne5PVDHUVM9o1VlylK_FQb87XiKUM",
@@ -16,5 +17,6 @@ const firebaseConfig = {
 const data = firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
+export const db = firebase.firestore();
 
 export {data}

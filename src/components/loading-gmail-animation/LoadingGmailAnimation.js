@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./GmailAnimation.module.css";
+import styles from "./LoadingGmailAnimation.module.css";
 
-const GmailAnimation = () => {
+const LoadingGmailAnimation = () => {
   return (
     <div id={styles.loading}>
       <div className={styles.div2}>
@@ -47,4 +47,4 @@ const GmailAnimation = () => {
   );
 };
 
-export default GmailAnimation;
+export default LoadingGmailAnimation;

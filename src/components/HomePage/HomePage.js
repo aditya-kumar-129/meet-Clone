@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./HomePage.module.css";
-import { useNavigate } from "react-router-dom";
 import { auth } from "../../lib/firebase";
 
 import { Avatar, Badge, Button } from "@mui/material";
@@ -9,7 +8,6 @@ import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 const HomePage = (props) => {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -59,8 +57,7 @@ const HomePage = (props) => {
               <PersonOutlinedIcon className={styles.home__addIcon} />
               <Button
                 onClick={() => {
-                   auth.signOut();
-                  navigate("/createAccount");
+                  auth.signOut();
                 }}
               >
                 <p>Add another account</p>
@@ -69,7 +66,6 @@ const HomePage = (props) => {
             <Button
               onClick={() => {
                 auth.signOut();
-                navigate("/signIn");
               }}
               variant="outlined"
               className={styles.home__signOut}
