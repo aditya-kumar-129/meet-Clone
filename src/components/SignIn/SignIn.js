@@ -22,6 +22,8 @@ const Signin = () => {
     setPassword(event.target.value);
   };
 
+  const disableSignInButton = !(email && password);
+
   const submitFormHandler = (event) => {
     event.preventDefault();
     let checkwhetherErrorOccured = false;
@@ -36,25 +38,29 @@ const Signin = () => {
         if (error.code === "auth/wrong-password") {
           setPasswordError({ state: true, message: "Wrong password" });
           setEmailError(intialErrorValue);
+          setPassword("");
           checkwhetherErrorOccured = true;
+          console.log(checkwhetherErrorOccured);
         } else if (error.code === "auth/user-not-found") {
           setEmailError({ state: true, message: "User not found" });
           setPasswordError(intialErrorValue);
+          setEmail("");
+          setPassword("");
           checkwhetherErrorOccured = true;
         } else if (error.code === "auth/invalid-email") {
           setEmailError({ state: true, message: "Invalid email" });
           setPasswordError(intialErrorValue);
+          setEmail("");
+          setPassword("");
           checkwhetherErrorOccured = true;
         } else {
           setEmailError({ state: true, message: "Something went wrong" });
           setPasswordError({ state: true, message: "Something went wrong" });
+          setEmail("");
+          setPassword("");
           checkwhetherErrorOccured = true;
         }
       });
-    if (!checkwhetherErrorOccured) {
-      setEmail("");
-      setPassword("");
-    }
   };
 
   return (
@@ -97,7 +103,6 @@ const Signin = () => {
             </div>
 
             <div className={styles.login__buttons}>
-              {/* Variant is basically used to fill the button of which it is chosen */}
               <Button
                 className={styles.login__button}
                 color="primary"
@@ -110,6 +115,7 @@ const Signin = () => {
                 color="primary"
                 variant="contained"
                 type="submit"
+                disabled={disableSignInButton}
               >
                 Sign in
               </Button>
