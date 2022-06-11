@@ -1,3 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Roboto:wght@400;500&display=swap");
+
+.home__header {
+  color: white;
+  padding: 10px;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.12) !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.home__left {
+  width: 240px;
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.home__menuIcon {
+  margin-right: 4px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.home__center {
+  flex-grow: 1;
+  margin-right: 96px;
+  background: rgba(241, 243, 244, 0.21);
+  display: flex;
+  align-items: center;
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.home__input {
+  width: 50%;
+  height: 25px;
+  border: none;
+  background: none;
+  outline: none;
+  margin-left: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.home__input::placeholder {
+  font-size: 16px;
+  color: white;
+}
+
+.home__right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 12%;
+}
+
+.home__right > * {
+  cursor: pointer;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -148,7 +213,6 @@
   justify-content: center;
   border-top: 1px solid #dadce0;
   padding-top: 5px;
-  /* margin-top: 5rem !important; */
 }
 
 .home__popover__footer > span {

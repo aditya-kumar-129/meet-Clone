@@ -21,7 +21,7 @@ function App() {
     if (appState === "loading") {
       setTimeout(() => {
         setAppState("home");
-      }, 5000);
+      }, 500);
     }
   });
 
