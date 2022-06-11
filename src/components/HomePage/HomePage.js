@@ -48,12 +48,8 @@ const HomePage = (props) => {
               <Avatar />
             </Badge>
             <div className={styles.home__text}>
-              <div className={styles.home__mail}>
-                {props.displayName}
-              </div>
-              <div className={styles.home__displayName}>
-                {props.email}
-              </div>
+              <div className={styles.home__mail}>{props.displayName}</div>
+              <div className={styles.home__displayName}>{props.email}</div>
             </div>
             <div className={styles.home__btn}>Manage your Google Account</div>
           </div>
@@ -63,6 +59,7 @@ const HomePage = (props) => {
               <PersonOutlinedIcon className={styles.home__addIcon} />
               <Button
                 onClick={() => {
+                   auth.signOut();
                   navigate("/createAccount");
                 }}
               >
