@@ -32,8 +32,7 @@ function App() {
           path="/signIn"
           element={
             <IsUserRedirect user={user}>
-              {" "}
-              {appState === "logging" && <SignIn />}{" "}
+              {appState === "logIn" && <SignIn />}
             </IsUserRedirect>
           }
         />

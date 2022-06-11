@@ -25,7 +25,7 @@ export function ContextProvider({ children }) {
         setCurrentUser(user);
       } else {
         setCurrentUser(null);
-        setAppState("logging");
+        setAppState("logIn");
       }
     });
   }, []);

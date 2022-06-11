@@ -22,64 +22,66 @@ const HomePage = (props) => {
   };
 
   return (
-    <div className={styles.header}>
-      <Avatar className={styles.header__avatar} onClick={handleClick} />
-      <Popover
-        open={open}
-        id={id}
-        onClose={handleClose}
-        anchorEl={anchorEl}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <div className={styles.home__popoverContainer}>
-          <div className={styles.home__popover__top}>
-            <Badge
-              overlap="circular"
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              badgeContent={
-                <div className={styles.home__badge}>
-                  <CameraAltOutlinedIcon className={styles.home__camera} />
-                </div>
-              }
-            >
-              <Avatar />
-            </Badge>
-            <div className={styles.home__text}>
-              <div className={styles.home__mail}>{props.displayName}</div>
-              <div className={styles.home__displayName}>{props.email}</div>
+    <div className={styles.home}>
+      <div className={styles.header}>
+        <Avatar className={styles.header__avatar} onClick={handleClick} />
+        <Popover
+          open={open}
+          id={id}
+          onClose={handleClose}
+          anchorEl={anchorEl}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          <div className={styles.home__popoverContainer}>
+            <div className={styles.home__popover__top}>
+              <Badge
+                overlap="circular"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                badgeContent={
+                  <div className={styles.home__badge}>
+                    <CameraAltOutlinedIcon className={styles.home__camera} />
+                  </div>
+                }
+              >
+                <Avatar />
+              </Badge>
+              <div className={styles.home__text}>
+                <div className={styles.home__mail}>{props.displayName}</div>
+                <div className={styles.home__displayName}>{props.email}</div>
+              </div>
+              <div className={styles.home__btn}>Manage your Google Account</div>
             </div>
-            <div className={styles.home__btn}>Manage your Google Account</div>
-          </div>
 
-          <div className={styles.home__popover__btm}>
-            <div className={styles.home__addBtn}>
-              <PersonOutlinedIcon className={styles.home__addIcon} />
+            <div className={styles.home__popover__btm}>
+              <div className={styles.home__addBtn}>
+                <PersonOutlinedIcon className={styles.home__addIcon} />
+                <Button
+                  onClick={() => {
+                    auth.signOut();
+                  }}
+                >
+                  <p>Add another account</p>
+                </Button>
+              </div>
               <Button
                 onClick={() => {
                   auth.signOut();
                 }}
+                variant="outlined"
+                className={styles.home__signOut}
               >
-                <p>Add another account</p>
+                Sign Out
               </Button>
             </div>
-            <Button
-              onClick={() => {
-                auth.signOut();
-              }}
-              variant="outlined"
-              className={styles.home__signOut}
-            >
-              Sign Out
-            </Button>
+            <div className={styles.home__popover__footer}>
+              <p>Privacy policy</p>
+              <span>•</span>
+              <p>Terms of service</p>
+            </div>
           </div>
-          <div className={styles.home__popover__footer}>
-            <p>Privacy policy</p>
-            <span>•</span>
-            <p>Terms of service</p>
-          </div>
-        </div>
-      </Popover>
+        </Popover>
+      </div>
     </div>
   );
 };
