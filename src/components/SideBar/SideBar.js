@@ -41,69 +41,69 @@ const Sidebar = ({ children }) => {
   const classes = useStyles();
   const { drawerOpen, currentUser, setComposeOpen } = useLocalContext();
   return (
-      <div className={styles.drawerBox}>
-        <div className={classes.root}>
-          <Drawer
-            variant="permanent"
-            className={clsx(classes.drawer, {
+    <div className={styles.drawerBox}>
+      <div className={classes.root}>
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
+            [classes.drawerOpen]: drawerOpen,
+            [classes.drawerClose]: !drawerOpen,
+            backgroundColor: "#red",
+          })}
+          classes={{
+            paper: clsx({
               [classes.drawerOpen]: drawerOpen,
               [classes.drawerClose]: !drawerOpen,
-              backgroundColor: "#red",
-            })}
-            classes={{
-              paper: clsx({
-                [classes.drawerOpen]: drawerOpen,
-                [classes.drawerClose]: !drawerOpen,
-              }),
-            }}
+            }),
+          }}
+        >
+          <div
+            onClick={() => setComposeOpen(true)}
+            className={`${styles.sidebar__compose} ${
+              !drawerOpen && "styles.sidebar__composeClose"
+            }`}
           >
-            <div
-              onClick={() => setComposeOpen(true)}
-              className={`${styles.sidebar__compose} ${
-                !drawerOpen && "styles.sidebar__composeClose"
-              }`}
-            >
-              <img
-                className={styles.sidebar__addIMG}
-                src="/assets/PlusImage.png"
-                alt="add"
-              />
-              <p>Compose</p>
-            </div>
-            <SidebarNavBtn />
-            <MeetBtns />
+            <img
+              className={styles.sidebar__addIMG}
+              src="/assets/PlusImage.png"
+              alt="add"
+            />
+            <p>Compose</p>
+          </div>
+          <SidebarNavBtn />
+          <MeetBtns />
 
-            <div className={styles.sidebar__hangoutsOptions}>
-              <div className={styles.sidebar__hangoutsWrapper}>
-                <p className={styles.navbar__meetTitle}>Hangouts</p>
-                <div className={styles.sidebar__Hangoutsbadge}>
-                  <Badge
-                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                    overlap="circular"
-                    color="error"
-                    variant="dot"
-                  >
-                    <Avatar className={styles.sidebar__avatarSmall} />
-                  </Badge>
-                  <p>{currentUser?.displayName}</p>
-                </div>
+          <div className={styles.sidebar__hangoutsOptions}>
+            <div className={styles.sidebar__hangoutsWrapper}>
+              <p className={styles.navbar__meetTitle}>Hangouts</p>
+              <div className={styles.sidebar__Hangoutsbadge}>
+                <Badge
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  overlap="circular"
+                  color="error"
+                  variant="dot"
+                >
+                  <Avatar className={styles.sidebar__avatarSmall} />
+                </Badge>
+                <p>{currentUser?.displayName}</p>
               </div>
             </div>
+          </div>
 
-            <div className={styles.sidebar__hangoutChats}>
-              <div className={styles.sidebar__hangoutImg}></div>
-              <p>No recent chats</p>
-              <p>Start a new one</p>
-            </div>
+          <div className={styles.sidebar__hangoutChats}>
+            <div className={styles.sidebar__hangoutImg}></div>
+            <p>No recent chats</p>
+            <p>Start a new one</p>
+          </div>
 
-            <div className={styles.sidebar__footer}>
-              <PersonIcon />
-              <ChatIcon />
-            </div>
-          </Drawer>
-          {children}
-        </div>
+          <div className={styles.sidebar__footer}>
+            <PersonIcon />
+            <ChatIcon />
+          </div>
+        </Drawer>
+        {children}
       </div>
+    </div>
   );
 };
 
