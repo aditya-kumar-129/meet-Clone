@@ -4,4 +4,6 @@ export { default as SignUp } from "./SignUp/SignUp";
 export { default as SideBar } from "./SideBar/SideBar";
 export { default as Home } from "./Home/Home";
 export { default as Compose } from "./Compose/Compose";
+export { default as Mail } from "./Mail/Mail";
+export { default as Main } from "./Main/Main";
 export { default as LoadingGmailAnimation } from "./loading-gmail-animation/LoadingGmailAnimation";
