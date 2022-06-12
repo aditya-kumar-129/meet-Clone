@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { SignIn, SignUp, HomePage, LoadingGmailAnimation } from "./components";
+import { SignIn, SignUp, Home, LoadingGmailAnimation } from "./components";
 import { useLocalContext } from "./context/context";
 import { IsUserRedirect, ProtectedRoute } from "./helpers/routes";
 
@@ -43,7 +43,7 @@ function App() {
             <ProtectedRoute user={user}>
               {appState === "loading" && <LoadingGmailAnimation />}
               {appState === "home" && (
-                <HomePage email={email} displayName={displayName} />
+                <Home email={email} displayName={displayName} />
               )}
             </ProtectedRoute>
           }

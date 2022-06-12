@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../lib/firebase";
-import { useLocalContect } from "./context";
+import { useLocalContext } from "./context";
 
 const MailContext = createContext();
 
@@ -19,7 +19,7 @@ export function MailContextProvider({ children }) {
   const [promosUnreadNo, setPromosUnreadNo] = useState(0);
   const [updatesUnreadNo, setUpdatesUnreadNo] = useState(0);
 
-  const { currentUser } = useLocalContect();
+  const { currentUser } = useLocalContext();
 
   useEffect(() => {
     if (currentUser) {

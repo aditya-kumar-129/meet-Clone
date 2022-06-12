@@ -1,0 +1,7 @@
+.home {
+  background-image: url("../../../public/assets/BackGroundPicture.jpg");
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}

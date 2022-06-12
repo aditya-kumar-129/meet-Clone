@@ -55,26 +55,12 @@
   justify-content: space-between;
   align-items: center;
   margin-left: 50px;
-  margin-right: 50px;
+  margin-right: 50px;     /* This is the extra line that I have added */
   width: 12%;
 }
 
 .home__right > * {
   cursor: pointer;
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.header__avatar {
-  cursor: pointer;
-  position: absolute !important;
-  right: 20px;
-  top: 20px;
 }
 
 .MuiPopover-paper {
@@ -83,14 +69,6 @@
   margin-top: 20px;
   margin-right: -10px;
   height: 390px;
-}
-
-.home {
-  background-image: url("../../../public/assets/BackGroundPicture.jpg");
-  background-repeat: no-repeat, repeat;
-  background-size: cover;
-  width: 100vw;
-  height: 100vh;
 }
 
 .home__popoverContainer {
@@ -163,7 +141,6 @@
   font-family: "Poppins";
   cursor: pointer;
   user-select: none;
-  font-size: 15px;
 }
 
 .home__btn:hover {
