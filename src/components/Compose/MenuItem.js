@@ -1,8 +1,11 @@
-import { TextField } from "@material-ui/core";
-import { Autocomplete } from "@mui/lab";
 import React, { useState } from "react";
-import { useLocalContext } from "../../context/context";
 import styles from "./Compose.module.css";
+import { useLocalContext } from "../../context/context";
+
+import { TextField } from "@material-ui/core";
+
+// https://mui.com/material-ui/react-autocomplete/
+import { Autocomplete } from "@mui/lab";
 
 const MenuItem = () => {
   const [inputValue, setInputValue] = useState("");
@@ -20,7 +23,7 @@ const MenuItem = () => {
         }}
         id="controllable-states-demo"
         options={options}
-        style={{ width: 300 }}
+        sx={{ width: 300 }}
         renderInput={(params) => (
           <TextField {...params} label="Categorize" variant="outlined" />
         )}
