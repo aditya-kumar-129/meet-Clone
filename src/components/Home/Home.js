@@ -6,14 +6,14 @@ import styles from "./Home.module.css";
 import { Header, SideBar, Compose, Main, SnackBar } from "..";
 import { useLocalContext } from "../../context/context";
 
-const Home = ({ email, displayName }) => {
+const Home = ({ email, displayName , showMail = true , mailData }) => {
   const { composeOpen } = useLocalContext();
   return (
     <div className={styles.home}>
       {composeOpen && <Compose />}
       <Header email={email} displayName={displayName} />
       <SideBar>
-        <Main />
+        {showMail ?  <Main/> : <div>{mailData.id}</div>}
       </SideBar>
       <SnackBar/>
     </div>
