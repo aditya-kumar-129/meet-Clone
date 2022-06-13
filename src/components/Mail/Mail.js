@@ -20,9 +20,9 @@ const Mail = ({ data }) => {
 
   const navigate = useNavigate();
 
+  // Below function is used to change the read property of the mail that has been sent to the user once he has read the mail
   const updateRead = () => {
     navigate(`/${data.id}`);
-
     if (data.read === false) {
       db.collection("RecivedMails").doc(currentUser.email).collection("mail").doc(data.id).update({...data,read: true,});
     }

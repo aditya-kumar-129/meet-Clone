@@ -16,15 +16,9 @@ import { Checkbox } from "@mui/material";
 
 const Main = () => {
   const { drawerOpen } = useLocalContext();
-
-  const {
-    onScreenMails,
-    mailsType,
-    setMailsType,
-    socialUnreadNo,
-    primaryUnreadNo,
-    promosUnreadNo,
-    updatesUnreadNo,
+  const { onScreenMails,
+    mailsType, setMailsType,
+    socialUnreadNo, primaryUnreadNo, promosUnreadNo, updatesUnreadNo,
   } = useMailContext();
 
   const [active, setActive] = useState("primary");
@@ -41,14 +35,10 @@ const Main = () => {
         <RefreshIcon />
         <MoreVertIcon />
       </div>
-      {mailsType === "Sent" ? (
-        <div></div>
-      ) : (
+      
+      {mailsType === "Sent" ? (<div></div>) : (
         <div className={styles.main__tabs}>
-          <div
-            className={`${styles.main__tab} ${active === "primary" && styles.main__tabPrimary__active}`}
-            onClick={() => updateActive("primary", "Primary")}
-          >
+          <div className={`${styles.main__tab} ${active === "primary" && styles.main__tabPrimary__active}`} onClick={() => updateActive("primary","Primary")}>
             <InboxIcon />
             <p>Primary</p>
             {primaryUnreadNo !== 0 && (
@@ -58,37 +48,31 @@ const Main = () => {
             )}
           </div>
 
-          <div
-            onClick={() => updateActive("Social", "Social")}
-            className={`${styles.main__tab} ${active === "Social" && styles.main__tabSocial__active}`}>
+          <div onClick={() => updateActive("Social", "Social")} className={`${styles.main__tab} ${active === "Social" && styles.main__tabSocial__active}`}>
             <PeopleIcon />
             <p>Social</p>
             {socialUnreadNo !== 0 && (
-              <div className={`${styles.mail__unread} ${styles.social__unread}`} >
+              <div className={`${styles.mail__unread} ${styles.social__unread}`}>
                 {socialUnreadNo} new
               </div>
             )}
           </div>
 
-          <div
-            onClick={() => updateActive("Promotions", "Promotions")}
-            className={`${styles.main__tab} ${active === "Promotions" && styles.main__tabPromotions__active}`}>
+          <div onClick={() => updateActive("Promotions","Promotions")} className={`${styles.main__tab} ${active === "Promotions" && styles.main__tabPromotions__active}`}>
             <LocalOfferIcon />
             <p>Promotions</p>
             {promosUnreadNo !== 0 && (
-              <div className={`${styles.mail__unread} ${styles.promotions__unread}`} >
+              <div className={`${styles.mail__unread} ${styles.promotions__unread}`}>
                 {promosUnreadNo} new
               </div>
             )}
           </div>
 
-          <div
-            onClick={() => updateActive("Updates", "Updates")}
-            className={`${styles.main__tab} ${active === "Updates" && styles.main__tabUpdates__active}`}>
+          <div onClick={() => updateActive("Updates", "Updates")} className={`${styles.main__tab} ${active === "Updates" && styles.main__tabUpdates__active}`}>
             <ErrorIcon />
             <p>Important</p>
             {updatesUnreadNo !== 0 && (
-              <div className={`${styles.mail__unread} ${styles.updates__unread}`} >
+              <div className={`${styles.mail__unread} ${styles.updates__unread}`}>
                 {updatesUnreadNo} new
               </div>
             )}
@@ -97,9 +81,7 @@ const Main = () => {
       )}
 
       <div className={styles.main__mails}>
-        {onScreenMails.map((mail, index) => (
-          {/* <Mail key={index} data={mail} /> */}
-        ))}
+        {onScreenMails.map((mail, index) => (<Mail key={index} data={mail} />))}
       </div>
     </div>
   );

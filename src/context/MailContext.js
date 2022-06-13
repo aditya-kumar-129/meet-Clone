@@ -13,37 +13,41 @@ export function MailContextProvider({ children }) {
   const [onScreenMails, setOnScreenMails] = useState([]);
   const [sentMails, setSentMails] = useState([]);
   const [mailsType, setMailsType] = useState("Primary");
+
+  const [inboxUnreadNo, setInboxUnreadNo] = useState(0);
   const [socialUnreadNo, setSocialUnreadNo] = useState(0);
   const [primaryUnreadNo, setPrimaryUnreadNo] = useState(0);
-  const [inboxUnreadNo, setInboxUnreadNo] = useState(0);
   const [promosUnreadNo, setPromosUnreadNo] = useState(0);
   const [updatesUnreadNo, setUpdatesUnreadNo] = useState(0);
 
   const { currentUser } = useLocalContext();
 
+  // This useEffect is for getting all the mails that has been sent to the user from the firebase database
   useEffect(() => {
     if (currentUser) {
-      db.collection("RecivedMails")
-        .doc(currentUser.email)
-        .collection("mail")
-        .onSnapshot((snapshot) => {
-          setReceivedMails(snapshot.docs.map((doc) => doc.data()));
-        });
+      db.collection("RecivedMails").doc(currentUser.email).collection("mail").onSnapshot((snapshot) => {
+        setReceivedMails(snapshot.docs.map((doc) => doc.data()));
+      });
     }
   }, [currentUser]);
 
+  // This useEffect is for getting all the mails that the user has sent to any one of the users
   useEffect(() => {
     if (currentUser) {
-      db.collection("SentMails")
-        .doc(currentUser.email)
-        .collection("mails")
-        .onSnapshot((snapshot) => {
-          setSentMails(snapshot.docs.map((doc) => doc.data()));
-        });
+      db.collection("SentMails").doc(currentUser.email).collection("mails").onSnapshot((snapshot) => {
+        setSentMails(snapshot.docs.map((doc) => doc.data()));
+      });
     }
   }, [currentUser]);
 
+  // This useEffect is used for filtering the mails that he/she has recieved from anyone based on the tab he/she has selected such as primary,social,promotion,updates and sent mails and then setting the onScreenMails to the filtered mails
   useEffect(() => {
+    // when the user clicks on the sent mail then we have to show the sent mails
+    if (mailsType === "Sent") {
+      setOnScreenMails(sentMails);
+    }
+
+    // Filtering of received mails when the user clicks on the primary tab
     if (mailsType === "Primary") {
       let array = receivedMails.filter((e) => {
         return e.category === "Primary";
@@ -51,22 +55,23 @@ export function MailContextProvider({ children }) {
       setOnScreenMails(array);
     }
 
-    if (mailsType === "Sent") {
-      setOnScreenMails(sentMails);
-    }
-
+    // Filtering of received mails when the user clicks on the promotions tab
     if (mailsType === "Promotions") {
       let array = receivedMails.filter((e) => {
         return e.category === "Promotions";
       });
       setOnScreenMails(array);
     }
+
+    // Filtering of received mails when the user clicks on the social tab
     if (mailsType === "Social") {
       let array = receivedMails.filter((e) => {
         return e.category === "Social";
       });
       setOnScreenMails(array);
     }
+
+    // Filtering of received mails when the user clicks on the updates tab
     if (mailsType === "Updates") {
       let array = receivedMails.filter((e) => {
         return e.category === "Updates";
@@ -74,97 +79,53 @@ export function MailContextProvider({ children }) {
       setOnScreenMails(array);
     }
   }, [mailsType, receivedMails, sentMails]);
-
+  
   useEffect(() => {
+    // First we are sorting the received mails whose read status is false
     let array = receivedMails.filter((e) => {
       return e.read === false;
     });
 
+    // Then we are counting the number of unread mails so that we can update the total count of unread message in the inbox of the sidebar
+    setInboxUnreadNo(array.length);
+
+    // Then we are counting the number of unread mails which is of category primary
     let primaryUnread = array.filter((e) => {
       return e.category === "Primary";
     });
 
-    primaryUnread.map((value, index) => {
-      let a1 = 1 + index;
-      setPrimaryUnreadNo(a1);
+    // Then we are updating the unread no of mails of primary tab.
+    setPrimaryUnreadNo(primaryUnread.length);
 
-      return a1;
-    });
-  }, [receivedMails]);
-
-  useEffect(() => {
-    let array = receivedMails.filter((e) => {
-      return e.read === false;
-    });
-
-    array.map((value, index) => {
-      let a1 = 1 + index;
-      setInboxUnreadNo(a1);
-
-      return a1;
-    });
-  }, [receivedMails]);
-
-  useEffect(() => {
-    let array = receivedMails.filter((e) => {
-      return e.read === false;
-    });
-
-    let primaryUnread = array.filter((e) => {
+    // Then we are counting the number of unread mails which is of category social
+    let socialUnread = array.filter((e) => {
       return e.category === "Social";
     });
 
-    primaryUnread.map((value, index) => {
-      let a1 = 1 + index;
-      setSocialUnreadNo(a1);
+    // Then we are updating the unread no of mails of social tab.
+    setSocialUnreadNo(socialUnread.length);
 
-      return a1;
-    });
-  }, [receivedMails]);
-
-  useEffect(() => {
-    let array = receivedMails.filter((e) => {
-      return e.read === false;
-    });
-
-    let primaryUnread = array.filter((e) => {
+    // Then we are counting the number of unread mails which is of category promotions
+    let promotionUnread = array.filter((e) => {
       return e.category === "Promotions";
     });
 
-    primaryUnread.map((value, index) => {
-      let a1 = 1 + index;
-      setPromosUnreadNo(a1);
+    // Then we are updating the unread no of mails of promotions tab.
+    setPromosUnreadNo(promotionUnread.length);
 
-      return a1;
-    });
-  }, [receivedMails]);
-
-  useEffect(() => {
-    let array = receivedMails.filter((e) => {
-      return e.read === false;
-    });
-
-    let primaryUnread = array.filter((e) => {
+    // Then we are counting the number of unread mails which is of category updates
+    let updateUnread = array.filter((e) => {
       return e.category === "Updates";
     });
 
-    primaryUnread.map((value, index) => {
-      let a1 = 1 + index;
-      setUpdatesUnreadNo(a1);
-
-      return a1;
-    });
+    // Then we are updating the unread no of mails of updates tab.
+    setUpdatesUnreadNo(updateUnread.length);
   }, [receivedMails]);
 
-  const value = {
-    onScreenMails,
-    setMailsType,
-    mailsType,
-    socialUnreadNo,
-    primaryUnreadNo,
-    inboxUnreadNo,
-    promosUnreadNo,
-    updatesUnreadNo,
-  };
+  useEffect(()=>{
+    setOnScreenMails(receivedMails);
+  },[receivedMails]);
+
+  const value = {onScreenMails, setMailsType, mailsType, socialUnreadNo, primaryUnreadNo, inboxUnreadNo, promosUnreadNo, updatesUnreadNo };
   return <MailContext.Provider value={value}>{children}</MailContext.Provider>;
 }

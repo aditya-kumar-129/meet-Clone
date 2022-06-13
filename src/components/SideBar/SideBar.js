@@ -20,17 +20,11 @@ const useStyles = makeStyles((theme) => ({
 
   drawerOpen: {
     width: 256,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    transition: theme.transitions.create("width", {easing: theme.transitions.easing.sharp,duration: theme.transitions.duration.enteringScreen,}),
   },
 
   drawerClose: {
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+    transition: theme.transitions.create("width", {easing: theme.transitions.easing.sharp,duration: theme.transitions.duration.leavingScreen,}),
     overflowX: "hidden",
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: { width: "70px" },
@@ -45,29 +39,11 @@ const Sidebar = ({ children }) => {
       <div className={classes.root}>
         <Drawer
           variant="permanent"
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: drawerOpen,
-            [classes.drawerClose]: !drawerOpen,
-            backgroundColor: "#red",
-          })}
-          classes={{
-            paper: clsx({
-              [classes.drawerOpen]: drawerOpen,
-              [classes.drawerClose]: !drawerOpen,
-            }),
-          }}
+          className={clsx(classes.drawer, {[classes.drawerOpen]: drawerOpen,[classes.drawerClose]: !drawerOpen,backgroundColor: "#red",})}
+          classes={{paper: clsx({[classes.drawerOpen]: drawerOpen,[classes.drawerClose]: !drawerOpen,}),}}
         >
-          <div
-            onClick={() => setComposeOpen(true)}
-            className={`${styles.sidebar__compose} ${
-              !drawerOpen && "styles.sidebar__composeClose"
-            }`}
-          >
-            <img
-              className={styles.sidebar__addIMG}
-              src="/assets/PlusImage.png"
-              alt="add"
-            />
+          <div onClick={() => setComposeOpen(true)} className={`${styles.sidebar__compose} ${!drawerOpen && styles.sidebar__composeClose}`}>
+            <img className={styles.sidebar__addIMG} src="/assets/PlusImage.png" alt="add"/>
             <p>Compose</p>
           </div>
           <SidebarNavBtn />
@@ -77,15 +53,10 @@ const Sidebar = ({ children }) => {
             <div className={styles.sidebar__hangoutsWrapper}>
               <p className={styles.navbar__meetTitle}>Hangouts</p>
               <div className={styles.sidebar__Hangoutsbadge}>
-                <Badge
-                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                  overlap="circular"
-                  color="error"
-                  variant="dot"
-                >
+                <Badge anchorOrigin={{ vertical: "bottom", horizontal: "right" }} overlap="circular" color="error" variant="dot">
                   <Avatar className={styles.sidebar__avatarSmall} />
                 </Badge>
-                <p>{currentUser?.displayName}</p>
+                <p>{currentUser.displayName}</p>
               </div>
             </div>
           </div>
