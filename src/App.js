@@ -24,7 +24,7 @@ function App() {
     if (appState === "loading") {
       setTimeout(() => {
         setAppState("home");
-      }, 500);
+      }, 5000);
     }
   });
 
@@ -33,11 +33,7 @@ function App() {
       <Routes>
         <Route
           path="/signIn"
-          element={
-            <IsUserRedirect user={user}>
-              {appState === "logIn" && <SignIn />}
-            </IsUserRedirect>
-          }
+          element={<IsUserRedirect user={user}>{appState === "logIn" && <SignIn />}</IsUserRedirect>}
         />
 
         <Route
@@ -45,33 +41,18 @@ function App() {
           element={
             <ProtectedRoute user={user}>
               {appState === "loading" && <LoadingGmailAnimation />}
-              {appState === "home" && (
-                <Home email={email} displayName={displayName} />
-              )}
+              {appState === "home" && (<Home email={email} displayName={displayName} />)}
             </ProtectedRoute>
           }
         />
 
         <Route
           path="/createAccount"
-          element={
-            <IsUserRedirect user={user}>
-              <SignUp />
-            </IsUserRedirect>
-          }
+          element={<IsUserRedirect user={user}><SignUp /></IsUserRedirect>}
         />
         {onScreenMails.map((value, index) => (
-          <Route
-            key={index}
-            path={`/mail/${value.id}`}
-            element={
-              <Home
-                email={email}
-                displayName={displayName}
-                mailData={value}
-                showMail={false}
-              />
-            }
+          <Route key={index} path={`/mail/${value.id}`}
+            element={<Home email={email} displayName={displayName} mailData={value} showMail={false}/>}
           />
         ))}
         <Route path="*" element={<p>404 page</p>} />

@@ -3,9 +3,8 @@ import styles from "./Home.module.css";
 
 // index.js files are automatically detected by react compiler inisde any folder. In other words we can say that they are default imports.
 
-import { Header, SideBar, Compose, Main, SnackBar } from "..";
+import { Header, SideBar, Compose, Main, SnackBar, ViewMail } from "..";
 import { useLocalContext } from "../../context/context";
-import ViewMail from "../ViewMail/ViewMail";
 
 const Home = ({ email, displayName , showMail = true , mailData }) => {
   const { composeOpen } = useLocalContext();
