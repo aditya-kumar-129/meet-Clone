@@ -5,6 +5,7 @@ import styles from "./Home.module.css";
 
 import { Header, SideBar, Compose, Main, SnackBar } from "..";
 import { useLocalContext } from "../../context/context";
+import ViewMail from "../ViewMail/ViewMail";
 
 const Home = ({ email, displayName , showMail = true , mailData }) => {
   const { composeOpen } = useLocalContext();
@@ -13,9 +14,9 @@ const Home = ({ email, displayName , showMail = true , mailData }) => {
       {composeOpen && <Compose />}
       <Header email={email} displayName={displayName} />
       <SideBar>
-        {showMail ?  <Main/> : <div>{mailData.id}</div>}
+        {showMail ? <Main /> : <ViewMail mailData={mailData} />}
       </SideBar>
-      <SnackBar/>
+      <SnackBar />
     </div>
   );
 };
