@@ -3,7 +3,7 @@ import styles from "./Home.module.css";
 
 // index.js files are automatically detected by react compiler inisde any folder. In other words we can say that they are default imports.
 
-import { Header, SideBar, Compose, Main } from "..";
+import { Header, SideBar, Compose, Main, SnackBar } from "..";
 import { useLocalContext } from "../../context/context";
 
 const Home = ({ email, displayName }) => {
@@ -15,6 +15,7 @@ const Home = ({ email, displayName }) => {
       <SideBar>
         <Main />
       </SideBar>
+      <SnackBar/>
     </div>
   );
 };

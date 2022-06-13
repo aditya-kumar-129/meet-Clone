@@ -24,57 +24,30 @@ const Mail = ({ data }) => {
     navigate(`/${data.id}`);
 
     if (data.read === false) {
-      db.collection("RecivedMails")
-        .doc(currentUser.email)
-        .collection("mail")
-        .doc(data.id)
-        .update({
-          ...data,
-          read: true,
-        });
+      db.collection("RecivedMails").doc(currentUser.email).collection("mail").doc(data.id).update({...data,read: true,});
     }
   };
 
   return (
-    <div
-      onClick={updateRead}
-      className={`${styles.mail} ${data.read === false && styles.mail__unread}`}
-    >
-      <Checkbox
-        className={`${styles.mail__colorGray} ${styles.mail__hoverBlack}`}
-      />
+    <div className={`${styles.mail} ${data.read === false && styles.mail__unread}`} onClick={updateRead} >
+      <Checkbox className={`${styles.mail__colorGray} ${styles.mail__hoverBlack}`} />
       {starred ? (
-        <StarIcon
-          onClick={() => setStarred(!starred)}
-          className={`${styles.mail__Yellow}`}
-        />
+        <StarIcon onClick={() => setStarred(!starred)} className={`${styles.mail__Yellow}`} />
       ) : (
-        <StarBorderIcon
-          onClick={() => setStarred(!starred)}
-          className={`${styles.mail__colorGray} ${styles.mail__hoverBlack}`}
-        />
+        <StarBorderIcon onClick={() => setStarred(!starred)} className={`${styles.mail__colorGray} ${styles.mail__hoverBlack}`} />
       )}
 
       {important ? (
-        <LabelIcon
-          onClick={() => setImportant(!important)}
-          className={`${styles.mail__Yellow} ${styles.mail__label}`}
-        />
+        <LabelIcon onClick={() => setImportant(!important)} className={`${styles.mail__Yellow} ${styles.mail__label}`} />
       ) : (
-        <LabelOutlinedIcon
-          onClick={() => setImportant(!important)}
-          className={`${styles.mail__colorGray} ${styles.mail__hoverBlack} ${styles.mail__label}`}
-        />
+        <LabelOutlinedIcon onClick={() => setImportant(!important)} className={`${styles.mail__colorGray} ${styles.mail__hoverBlack} ${styles.mail__label}`} />
       )}
 
       <div className={styles.mail__texts}>
-        {/* //? Sender's name */}
         <p className={styles.mail__text}>{data.senderName}</p>
         <div className={styles.mail__titleSubtitle}>
           <p className={styles.mail__text}>{data.subject}</p>
-          <p className={`${styles.mail__text} ${styles.mail__body}`}>
-            {data.body}
-          </p>
+          <p className={`${styles.mail__text} ${styles.mail__body}`}>{data.body}</p>
         </div>
         <p className={styles.mail__text}>Jan 14</p>
       </div>
