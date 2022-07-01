@@ -31,6 +31,10 @@ function App() {
   return (
     <Fragment>
       <Routes>
+      <Route
+          path="/"
+          element={<IsUserRedirect user={user}>{appState === "logIn" && <SignIn />}</IsUserRedirect>}
+        />
         <Route
           path="/signIn"
           element={<IsUserRedirect user={user}>{appState === "logIn" && <SignIn />}</IsUserRedirect>}
