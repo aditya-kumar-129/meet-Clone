@@ -5,16 +5,15 @@ import { db } from "../../lib/firebase";
 import styles from "./Mail.module.css";
 
 // importing icons from material-ui
-import LabelIcon from "@mui/icons-material/Label";
-import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 import { Checkbox } from "@mui/material";
 
+const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ,'Jul', 'Aug', 'Sep' ,'Oct' ,'Nov', 'Dec']
+
 const Mail = ({ data }) => {
   const [starred, setStarred] = useState(false);
-  const [important, setImportant] = useState(false);
 
   const { currentUser } = useLocalContext();
 
@@ -37,19 +36,15 @@ const Mail = ({ data }) => {
         <StarBorderIcon onClick={() => setStarred(!starred)} className={`${styles.mail__colorGray} ${styles.mail__hoverBlack}`} />
       )}
 
-      {important ? (
-        <LabelIcon onClick={() => setImportant(!important)} className={`${styles.mail__Yellow} ${styles.mail__label}`} />
-      ) : (
-        <LabelOutlinedIcon onClick={() => setImportant(!important)} className={`${styles.mail__colorGray} ${styles.mail__hoverBlack} ${styles.mail__label}`} />
-      )}
-
       <div className={styles.mail__texts}>
         <p className={styles.mail__text}>{data.senderName}</p>
         <div className={styles.mail__titleSubtitle}>
-          <p className={styles.mail__text}>{data.subject}</p>
           <p className={`${styles.mail__text} ${styles.mail__body}`}>{data.body}</p>
         </div>
-        <p className={styles.mail__text}>Jan 14</p>
+        <div className={styles.mail__date}>
+          <span>{month[data.month]}</span>
+          <span>{data.date}</span>
+        </div>
       </div>
     </div>
   );

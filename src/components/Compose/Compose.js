@@ -36,6 +36,8 @@ const Compose = () => {
       sender: currentUser.email,
       senderName: currentUser.displayName,
       read: true,
+      month : new Date().getMonth(),
+      date : new Date().getDate(),
     })
     .then(() => {
       addRecivedMail();
@@ -49,6 +51,8 @@ const Compose = () => {
       sender: currentUser.email,
       senderName: currentUser.displayName,
       read: false,
+      month : new Date().getMonth(),
+      date : new Date().getDate(),
     })
     .then(() => {
       setSnackbarMsg("Mail sent");

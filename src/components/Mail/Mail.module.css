@@ -62,3 +62,8 @@
   display: flex;
   width: 50vw;
 }
+
+.mail__date {
+  margin-left: 10px;
+  color: #5f6368;
+}
